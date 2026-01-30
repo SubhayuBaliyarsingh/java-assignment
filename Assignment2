@@ -1,0 +1,94 @@
+//Q1 Where we have to reverse a string but without using the StringBuilder
+
+class ReverseString {
+    static String reverse(String s) {
+        char[] ch = s.toCharArray();
+        int i = 0, j = ch.length - 1;
+
+        while (i < j) {
+            char temp = ch[i];
+            ch[i] = ch[j];
+            ch[j] = temp;
+            i++;
+            j--;
+        }
+        return new String(ch);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(reverse("hello")); // olleh
+    }
+}
+
+
+//Q2 Where we have to check the palindrome which basically means to check if the words are same if read backwards
+
+class PalindromeCheck {
+    static boolean isPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j))
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome("madam")); 
+    }
+}
+
+
+//Q3 is where we have to find first non-repeating character
+
+class FirstNonRepeating {
+    static char firstNonRepeating(String s) {
+        int[] freq = new int[256];
+
+        for (char c : s.toCharArray())
+            freq[c]++;
+
+        for (char c : s.toCharArray()) {
+            if (freq[c] == 1)
+                return c;
+        }
+        return '\0'; // no non-repeating character
+    }
+
+    public static void main(String[] args) {
+        System.out.println(firstNonRepeating("aabbcdde")); // c
+    }
+}
+
+//Q4 is where we have to reverse the words in a sentence
+
+class ReverseWords {
+    static String reverseWords(String s) {
+        String[] words = s.split(" ");
+        int i = 0, j = words.length - 1;
+
+        while (i < j) {
+            String temp = words[i];
+            words[i] = words[j];
+            words[j] = temp;
+            i++;
+            j--;
+        }
+
+        String result = "";
+        for (int k = 0; k < words.length; k++) {
+            result += words[k];
+            if (k != words.length - 1)
+                result += " ";
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(reverseWords("Java is awesome"));
+        
+    }
+}
