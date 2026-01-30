@@ -221,15 +221,15 @@ class Main {
         stringList.add("B");
         stringList.add("C");
 
-        // Double List using Array implementation
+        
         MyList<Double> doubleList = new MyArrayList<>();
         doubleList.add(1.5);
         doubleList.add(2.5);
 
-        // Accessing elements
-        System.out.println(intList.get(0));     // 10
-        System.out.println(stringList.get(1));  // B
-        System.out.println(doubleList.get(0));  // 1.5
+        
+        System.out.println(intList.get(0));     
+        System.out.println(stringList.get(1)); 
+        System.out.println(doubleList.get(0));  
     }
 }
 
