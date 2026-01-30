@@ -205,6 +205,35 @@ class MyLinkedList<T> implements MyList<T> {
 
 //Q4. So as we used generics same code will work for various data types as the core concept of generics is we can define the variable and use it as we like for different data types.
 
+class Main {
+
+    public static void main(String[] args) {
+
+        
+        MyList<Integer> intList = new MyArrayList<>();
+        intList.add(10);
+        intList.add(20);
+        intList.insert(15, 1);
+
+        
+        MyList<String> stringList = new MyLinkedList<>();
+        stringList.add("A");
+        stringList.add("B");
+        stringList.add("C");
+
+        // Double List using Array implementation
+        MyList<Double> doubleList = new MyArrayList<>();
+        doubleList.add(1.5);
+        doubleList.add(2.5);
+
+        // Accessing elements
+        System.out.println(intList.get(0));     // 10
+        System.out.println(stringList.get(1));  // B
+        System.out.println(doubleList.get(0));  // 1.5
+    }
+}
+
+
 //Q6. Now we have to create a main class and we have to test both the implementation of (MyArrayList & MyLinkedList)
 
 public class Main {
