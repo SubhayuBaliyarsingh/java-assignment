@@ -1,0 +1,154 @@
+class Employee {
+    int id;
+    String name;
+    String dept;
+    int salary;
+    List<String> skills;
+
+    Employee(int id, String name, String dept, int salary, List<String> skills) {
+        this.id = id;
+        this.name = name;
+        this.dept = dept;
+        this.salary = salary;
+        this.skills = skills;
+    }
+
+    @Override
+    public String toString() {
+        return name + " | " + dept + " | " + salary;
+    }
+}
+
+List<Employee> employees = List.of(
+    new Employee(1, "Aman", "IT", 70000, List.of("Java", "Spring")),
+    new Employee(2, "Ravi", "HR", 40000, List.of("Recruitment")),
+    new Employee(3, "Neha", "IT", 90000, List.of("Java", "Docker")),
+    new Employee(4, "Pooja", "Finance", 60000, List.of("Excel", "Accounts")),
+    new Employee(5, "Aman", "IT", 70000, List.of("Java", "Spring"))
+);
+//As these will be the basics we need to fetch the data from...
+
+Task 1:(Where we have to filter salary>60000)
+
+List<Employee> highPaid =
+        employees.stream()
+                 .filter(e -> e.salary > 60000)
+                 .toList();
+
+
+Task 2: (where we have to map names only)
+
+List<String> names =
+        employees.stream()
+                 .map(e -> e.name)
+                 .toList();
+
+
+Task 3:(where we have to list out distinct names)
+
+Set<String> uniqueNames =
+        employees.stream()
+                 .map(e -> e.name)
+                 .collect(Collectors.toSet());
+
+Task 4: (where we to sort salary by descending order)
+
+List<Employee> sortedBySalary =
+        employees.stream()
+                 .sorted((a, b) -> b.salary - a.salary)
+                 .toList();
+
+Task 5:(where we have to print 2nd & 3rd highest salary)
+
+List<Employee> secondAndThird =
+        employees.stream()
+                 .sorted((a, b) -> b.salary - a.salary)
+                 .skip(1)
+                 .limit(2)
+                 .toList();
+
+Task 6:(where we have to map unique skills)
+
+Set<String> allSkills =
+        employees.stream()
+                 .flatMap(e -> e.skills.stream())
+                 .collect(Collectors.toSet());
+
+Task 7: (where we have to calculate total salary using reduce())
+
+int totalSalary =
+        employees.stream()
+                 .map(e -> e.salary)
+                 .reduce(0, Integer::sum);
+
+Task 8: (where we have to calculate average salary)
+
+double averageSalary =
+        employees.stream()
+                 .map(e -> e.salary)
+                 .reduce(0, Integer::sum)
+                 / (double) employees.stream().count();
+
+Task 9: (where we have to use groupby)
+
+Map<String, List<Employee>> byDept =
+        employees.stream()
+                 .collect(Collectors.groupingBy(e -> e.dept));
+
+
+Task 10: (whre we have to fetch highest payed employee)
+
+Map<String, Employee> highestPaidByDept =
+        employees.stream()
+                 .collect(Collectors.groupingBy(
+                     e -> e.dept,
+                     Collectors.collectingAndThen(
+                         Collectors.maxBy(Comparator.comparingInt(e -> e.salary)),
+                         Optional::get
+                     )
+                 ));
+
+Task 11: (Where we have to fetch top skilled individuals)
+
+List<String> topSkills =
+        employees.stream()
+                 .filter(e -> e.dept.equals("IT"))
+                 .filter(e -> e.salary > 60000)
+                 .flatMap(e -> e.skills.stream())
+                 .distinct()
+                 .sorted()
+                 .limit(3)
+                 .toList();
+
+
+Task 12: (where we have to fetch department salary report)
+
+Map<String, Map<String, Double>> report =
+        employees.stream()
+                 .collect(Collectors.groupingBy(
+                     e -> e.dept,
+                     Collectors.collectingAndThen(
+                         Collectors.toList(),
+                         list -> {
+                             double total =
+                                     list.stream()
+                                         .map(e -> e.salary)
+                                         .reduce(0, Integer::sum);
+
+                             double count = list.size();
+                             double average = total / count;
+
+                             Map<String, Double> stats = new HashMap<>();
+                             stats.put("total", total);
+                             stats.put("average", average);
+                             stats.put("count", count);
+
+                             return stats;
+                         }
+                     )
+                 ));
+
+
+
+
+
